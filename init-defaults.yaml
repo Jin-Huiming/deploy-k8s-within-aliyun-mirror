@@ -23,6 +23,7 @@ apiServer:
 apiVersion: kubeadm.k8s.io/v1beta2
 certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
+controlPlaneEndpoint: dirk.service.consul
 dns:
   type: CoreDNS
 etcd:
