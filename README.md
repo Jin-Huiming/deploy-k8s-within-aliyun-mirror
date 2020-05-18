@@ -96,7 +96,25 @@ networking:
 
 然后，使用 `kubeadm init --config init-default.yaml` 开始初始化。具体预置的 config 可以使用 `kubeadm config print init-defaults` 查看。
 
-如果无误，则会提示 nodes 上 `kubeadm join` 需要的相关信息。
+如果需要集群模式，则加上 `--upload-certs` 这个参数，具体参见： https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+
+```
+The --upload-certs flag is used to upload the certificates that should be shared across all the control-plane instances to the cluster.
+```
+
+所以需要加上参数：
+
+```
+kubeadm init --upload-certs --config init-default.yaml
+```
+
+如果无误，则会提示 nodes 上 `kubeadm join` 需要的相关信息。如果遗忘了 `kubeadm join` 命令，可以使用：
+
+```
+kubeadm token create --print-join-command
+```
+
+重新获得，via https://github.com/kubernetes/kubeadm/issues/659#issuecomment-357726502
 
 然后，就可以使用 `kubectl get nodes -A` 以及 `kubectl get pod -A -o wide` 等命令查看 K8S 控制面集群的运行状态了。
 
